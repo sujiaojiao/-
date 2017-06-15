@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">	
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<link rel="stylesheet" href="css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/iconfont.css"/>
+		<title>注册页面</title>
+		<style>
+			html{background: #f1eeee;}
+			.head{width: 100%;height: 50px;line-height: 50px;background: url(img/login/top_bgline.png) repeat-x;}
+			.head #logtext{font-size: 2rem;text-align: center;font-family:"微软雅黑";color:#FFFFFF;}																
+			.content{background: #f1eeee;}				
+			.load_form{margin-top: 20px;}						
+			form li{width: 86%;margin: 0 auto;margin-top: 4px;border-radius: 5px;}
+			.load{border: 0.8px solid #D7D7D7;background: #FFFFFF;height: 36px;}
+			form li span{line-height: 36px;margin-left: 5px;}
+			.zhuce{color: #ffffff;background: #d00878;text-align: center;height: 36px;border-radius: 5px;font-family: "微软雅黑";font-size: 20px;line-height: 36px;}
+			.rem{font-size: 9px;color: red;}
+	        .checkActive{}
+	
+		
+	
+		</style>
+	</head>
+	<body>
+	
+		<header class="container">			
+				<div class="row ">
+					<div class="head">	
+						<div class="col-xs-4"><img id="back" src="img/login/top_logo.png  "/></div>
+						<div class="col-xs-4"><img id="log" src="img/login/top_font.png "/></div>
+					</div>
+				</div>			
+		</header>
+		<div class="content">
+			<div class="container">
+				<div class="row">
+					<ul class="load_form">
+					   <form name="form_register" id="regform" action="" method="post" style="padding-top:5px;">
+					   	 <li class="load">
+					   	 	<span>账户名称:</span>
+					   	 	<input type="text" id="input_register_username" name="username" placeholder="请输入账户:" size="12" />
+					   	 	<span id="span_register_username" class="post_error rem">&nbsp;</span>
+					   	 </li>
+					   	 <li class="load">
+					   	 	<span>登陆密码:</span>
+					   	 	<input type="password"  id="input_register_password" name="password" placeholder="请输入密码:" size="12" />
+					   	 	<span id="span_register_password" class="post_error rem">&nbsp;</span>
+					   	 </li>
+					   	 <li class="load">
+					   	 	<span>确认密码:</span>
+					   	 	<input type="password" id="input_register_password_confirm" name="password_confirm" placeholder="请确认密码:" size="12" />
+					   	 	<span id="span_register_password_confirm" class="post_error rem">&nbsp;</span>
+					   	 </li>
+					   	 <li class="load">
+					   	 	<span>验 证 码 :</span>
+					   	 	<input onfocus="codeF('#regcode')" name="code" id="code" type="text" size="12" />
+					   	 	<img id="regcode" class="vam hand dpn" >
+							<!--<span id="regcode_error" class="code_error rem">&nbsp;</span>-->
+					   	 </li>
+					   	 <li>
+					   	 	<span id="regcode_error" class="code_error rem">&nbsp;</span>
+					   	 </li>
+				 		<li style="margin-top: 0px;">
+				 			<input id="read" type="checkbox" checked="checked" style="width: 20px;"/>我已阅读并接受轩贝商城服务条款
+				 			
+				 		</li>	
+						<li style="position: relative;">
+				 			<h3 class="zhuce" /><input class="btn_reglogin js_login" value="注册" type="submit" style="background-color: #d00878;"></h3>
+				 			<p class="sureBtn" style="height: 100%;width: 100%;position: absolute;background: rgba(0,0,0,0.3); top: 0;display: none;"></p>
+				 		</li>
+				 		
+						
+					   </form>
+						
+					</ul>
+				
+				</div>		
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-3.0.0.js" ></script>
+	<script>
+		
+
+     $(function(){
+     	$('#read').click(function () {
+			$(this).toggleClass('.checkActive');
+			if($(this).hasClass('.checkActive')){
+//				alert(1)
+			$(".sureBtn").show();
+		}else{
+			$(".sureBtn").hide();
+		}
+		})
+     	//注册
+    	$("#regform").submit(function(){
+    		//用户名
+    		var username = $('#input_register_username').val();
+			if(!username){
+				$("#span_register_username").html("请输入账号");
+				return false;
+				
+			}else{
+				//进入判断格式
+				if(isemail(username)){
+					$("#span_register_username").html("");
+				}else{
+					$("#span_register_username").html("错误的格式");
+					return false;
+				}			
+			}
+			//密码
+			var password = $("#input_register_password").val();
+			if(!password){
+				$('#span_register_password').html('请输入密码!');
+                return false;
+			}else{
+				 $('#span_register_password').html('');
+			}
+			//确认密码
+			var password =$("#input_register_password_confirm").val();
+			if(!password){
+				$('#span_register_password_confirm').html('请确认密码!');
+                return false;
+			}else{
+				if($('#input_register_password_confirm').val()!=$('#input_register_password').val()){
+                 	$('#span_register_password_confirm').html('密码不一致!');
+                  	return false;
+                }else{
+                 	$('#span_register_password_confirm').html('');}
+			}
+            
+			$.ajax({
+			url:"ajax/ajaxUserRegSava.php",
+			data:$('#regform').serialize(),
+			type:"POST",
+			success:function(data){
+//				alert(data);
+				switch(parseInt(data)){
+					
+				  case 0:			  
+				    $('#regcode_error').html('验证码错误!');
+					break;
+				  
+				  case 5:
+				    $('#span_register_username').html('账号已存在!');
+					break;	
+				  case 1:
+				     alert('账号注册成功，但是需要管理员审核后才能使用!');
+					 break;	 
+				  case 2:
+				 	  location.href="index.php";
+					break;	 
+				   default:
+				      alert('未知错误,登陆失败，请联系管理员');	 		
+			       }
+				  
+				},
+			error:function(e){
+				 //错误的页面.
+				  alert('表单提交错误');
+				}
+			});	
+			
+    		return false;
+    	})
+     })
+//   $('#code').blur(function(){    
+//      if(!$(this).val()) {         
+//          $('#regcode_error').html('请输入验证码!');
+//      }else{
+//          $('#regcode_error').html('');
+//      }
+//  });
+    	$("#input_register_username").blur(function(){
+			var username = $('#input_register_username').val();
+			if(!username){
+				$("#span_register_username").html("请输入账号");
+				
+			}else{
+				//进入判断格式
+				if(isemail(username)){
+					$("#span_register_username").html("");
+				}else{
+					$("#span_register_username").html("错误的格式");
+				}			
+			}
+		})
+		$("#input_register_password").blur(function(){
+			var password = $("#input_register_password").val();
+			if(!password){
+				$("#span_register_password").html("请输入密码");
+			}else{
+				$("#span_register_password").html("");
+			}
+		})
+		$('#input_register_password_confirm').blur(function(){
+        var password =$('#input_register_password_confirm').val();
+        if(!password){
+            $('#span_register_password_confirm').html('请输入密码!');
+        }else{
+            if($('#input_register_password_confirm').val()!=$('#input_register_password').val()){
+                $('#span_register_password_confirm').html('密码不一致!');
+            }else{
+                 $('#span_register_password_confirm').html('');}
+        }
+    }); 
+   
+	//验证Email格式是否正确
+		function isemail(str){
+			var search_str = /^[\w\-\.]+@[\w\-\.]+(\.\w+)+$/;
+			if(!search_str.test(str)){
+				return false;
+			}
+			return true;
+		}
+		//刷新验证码
+		function codeF(e){
+			$("img"+e).attr("src","public/code.php").show();
+		}
+		$("#back").click(function(){
+		history.go(-1);
+	})
+	</script>
+</html>

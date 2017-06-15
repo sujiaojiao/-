@@ -1,0 +1,90 @@
+html,body{
+
+}
+ol,ul,li{
+	list-style: none;
+}
+#login_h{
+	height: 41px;
+	/*background: url(../images/timg5.jpg) repeat-x;*/
+}
+#login_f{
+	
+	height: 50px;
+	/*background: url(../images/timg5.jpg) repeat-x;*/	
+}
+#login_f h5{
+	width: 100%;	
+	text-align: center;
+}
+.content{
+	height: 520px;
+	min-width: 960px;
+	/*background: url(../images/timg5.jpg)  repeat-x;*/
+	background-size: 100% 100%;
+	
+}
+.content_cont{
+	width: 90%;
+	padding: 100px 0;
+	/*background: pink;*/
+	margin: auto;
+	font-size: 14px;
+	/*background-color: #EEF2FB;*/
+	color: #888888;
+	font-family: font-family: Arial, Helvetica, sans-serif;
+	overflow: hidden;
+}
+.content_left{
+	width: 49%;
+	/*background: green;*/
+	float: left;
+}
+.content_left img{
+	padding-top: 30px;
+	margin-left: 35%;
+}
+.content_left ol li{
+	margin-top: 20px;
+	margin-left: 18%;
+}
+.content_cont .content_center{
+	width: 2%;
+	height:250px;
+	/*background: url(../images/timg5.jpg) repeat-y;*/
+	background-size: 100% 100%;
+	float: left;
+}
+.content_right{
+	width: 49%;
+	color: black;
+	float: right;
+}
+.content_right h4{
+	padding-top: 30px;
+	margin-left: 12%;
+}
+.content_right table{
+	margin-left: 11%;
+	font-size: 10px;
+}
+.content_right table tr td{
+	margin-top: 8px;
+}
+/*admin_top.css*/
+.admin_topbg{
+	background-image: url(../images/timg6.jpg) ;
+	background-size: 100% 100%;
+	/*background-repeat: repeat-y;*/
+}
+.admin_txt{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	line-height: 25px;
+	font-weight: bold;
+	color:#B9CCEA;
+	text-decoration: none;
+}
+.admin_txt b{
+	color: #0066CC;
+}
